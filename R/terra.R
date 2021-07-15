@@ -9,3 +9,17 @@ st_as_sf.SpatVector = function(x, ..., hex = TRUE) {
 	d$geometry <- structure(as.list(d$geometry), class = "WKB")
 	st_as_sf(d, crs = x@ptr$get_crs("wkt"))
 }
+
+#' @export
+st_crs.SpatRaster = function(x, ...) {
+	if (!requireNamespace("terra", quietly = TRUE))
+		stop("package terra required, please install it first") # nocov
+	st_crs(terra::crs(x))
+}
+
+#' @export
+st_crs.SpatVector = function(x, ...) {
+	if (!requireNamespace("terra", quietly = TRUE))
+		stop("package terra required, please install it first") # nocov
+	st_crs(terra::crs(x))
+}
